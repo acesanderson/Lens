@@ -1,98 +1,84 @@
-────────────────────────────────────────────────────────────────────────────────────────────────────
-┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃                                 Courses Database Search Project                                  ┃
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# Course Search Tool
 
-This project is a Python-based command line tool for searching through a MongoDB (or potentially    
-SQLite) Courses database. It supports both strict and fuzzy searches across course metadata and     
-Table of Contents (TOC) to identify relevant courses based on keywords input by the user.           
+This Python script allows you to search through a MongoDB database of course information using either strict or fuzzy keyword matching. It's designed to operate on a MongoDB Courses database and offers the flexibility of being used on MacOS or via an SSH tunnel from Windows. For a more portable version, SQLite could be used. This tool leverages the Rich library for enhanced console input/output and RapidFuzz for fuzzy matching.
 
+## Features
 
-                                              Features                                              
+- **Strict and Fuzzy Search:** Search course data using strict keyword matching or fuzzy matching to find relevant results even if the exact keyword is not present.
+- **Interactive Mode:** Offers an interactive mode where you can input keywords continuously.
+- **Multiple Keyword Search:** Supports searching for multiple keywords and returns results common to all.
 
- • Keyword Search: Find courses based on keywords within the course title, description, or TOC.     
- • Fuzzy Matching: Utilize fuzzy matching to identify courses with similar but not exact keyword    
-   matches.                                                                                         
- • Multiple Keyword Search: Search using multiple keywords and identify common courses.             
- • Interactive Mode: Allows for real-time interaction, prompt-based searching, and dynamic settings 
-   adjustment for fuzzy matching.                                                                   
+## Prerequisites
 
+- **Python 3.x**: Make sure Python is installed on your system.
+- **MongoDB**: The courses database should be set up and populated.
+- **Required Libraries**: Install necessary packages if not already available.
+  
+  ```sh
+  pip install pymongo rich rapidfuzz
+  ```
 
-                                            Requirements                                            
+## Setup 
 
- • Python 3.7+                                                                                      
- • Packages:                                                                                        
-    • rich for enhanced console input/output                                                        
-    • rapidfuzz for fuzzy string matching                                                           
-    • argparse for command line argument parsing                                                    
-    • pymongo for MongoDB access                                                                    
- • MongoDB should be properly set up with a courses database.                                       
+1. **Database Configuration**: Ensure your MongoDB Courses database is accessible.
+2. **Environment**: Depending on your OS, ensure the necessary connections are set up (direct for MacOS or via SSH tunnel for Windows).
 
-Install the required Python packages using pip:                                                     
+## Usage
 
-                                                                                                    
- pip install rich rapidfuzz pymongo                                                                 
-                                                                                                    
+### Command Line Options
 
+1. **Basic Usage**: Search for a keyword.
+   ```sh
+   python script_name.py <keyword>
+   ```
+   Replace `<keyword>` with your search term.
 
-                                             Setting Up                                             
+2. **Fuzzy Search**: Enable fuzzy matching.
+   ```sh
+   python script_name.py <keyword> --fuzzy
+   ```
 
- 1 Clone the Repository                                                                             
-                                                                                                    
-    git clone <repository-url>                                                                      
-    cd <repository-directory>                                                                       
-                                                                                                    
- 2 Database Configuration                                                                           
-   Ensure that your MongoDB instance is running and accessible. The script is designed to connect to
-   this database to fetch courses.                                                                  
- 3 Running the Script                                                                               
-   You can run the script in two primary modes:                                                     
-                                         Non-interactive Mode:                                      
-                                                                                                    
-    python main.py <keyword> [-f]                                                                   
-                                                                                                    
-    • <keyword>: The keyword to search for.                                                         
-    • -f or --fuzzy: Enable fuzzy matching.                                                         
-                                           Interactive Mode:                                        
-                                                                                                    
-    python main.py -i                                                                               
-                                                                                                    
-   The interactive mode allows you to enter keywords and toggle fuzzy matching dynamically. To exit,
-   type exit.                                                                                       
- 4 Functionality Breakdown                                                                          
-    • Type single or multiple keywords (separated by newline) for searching.                        
-    • Utilize the fuzzy command to toggle fuzzy matching on or off.                                 
-    • In non-interactive mode, enter keywords directly as command-line arguments.                   
+3. **Interactive Mode**: Start an interactive session.
+   ```sh
+   python script_name.py --interactive
+   ```
 
+### Interaction in Interactive Mode
 
-                                           Usage Example                                            
+- **Enter a Keyword**: When prompted, enter the keyword you wish to search for.
+- **Toggle Fuzzy Matching**: Type "fuzzy" to toggle the fuzzy matching mode.
+- **Exit**: Type "exit" to end the interactive session.
 
-If you want to find courses with the keyword Python and enable fuzzy matching:                      
+## Functions
 
-                                                                                                    
- python main.py "Python" -f                                                                         
-                                                                                                    
+- **find_keyword_strict**: Looks for exact keyword matches in course titles, descriptions, and table of contents.
+- **find_keyword_fuzzy**: Uses fuzzy matching to identify courses relevant to the keyword.
+- **search_multiple_keywords**: Accepts multiple keywords and finds courses common to all.
+- **Lens**: Core function to execute a keyword search across courses.
 
-In interactive mode, after execution:                                                               
+## Example
 
-                                                                                                    
- python main.py -i                                                                                  
-                                                                                                    
+To find courses containing the keyword "Python" with fuzzy matching enabled:
 
- • Type Python and press Enter for results.                                                         
- • Type fuzzy to toggle fuzzy matching.                                                             
- • Type exit to quit the interactive session.                                                       
+```sh
+python script_name.py "Python" --fuzzy
+```
 
+In interactive mode, you can search continuously by entering different keywords. Toggle fuzzy matching by typing "fuzzy" and exit the loop by typing "exit".
 
-                                           Contributions                                            
+## Future Improvements
 
-Contributions to the project are welcome! If you have any suggestions or improvements, feel free to 
-fork the repository and submit a pull request.                                                      
+- **Database Portability**: Incorporate SQLite for a more portable solution.
+- **GUI Integration**: Develop a graphical user interface for ease of use.
 
+## Support
 
-                                              Support                                               
+For any issues or contributions, please contact [Your Contact Information]. We welcome feedback and suggestions for improvement.
 
-If you run into any issues or have questions, you can reach out via the issue tracker on the        
-repository.                                                                                         
+## License
 
-────────────────────────────────────────────────────────────────────────────────────────────────────
+This project is licensed under the terms of your preferred license.
+
+---
+
+This README provides a comprehensive guide for both technical users and those less familiar with command-line tools, detailing the script's features, setup, and usage instructions.

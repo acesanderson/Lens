@@ -40,27 +40,24 @@ def find_keyword(keyword, course, fuzzy = False):
     For a single course, find the keyword in the course transcript.
     """
     if keyword:
-        if args.fuzzy:
+        if fuzzy:
             return find_keyword_fuzzy(keyword, course)
         else:
             return find_keyword_strict(keyword, course)
 
-def Lens(keyword: str, fuzzy: bool = False, courses: list = []):
+def Lens(keyword: str, courses: list, fuzzy: bool = False):
     """
     Importable function to search for a keyword in course data.
     If you import, you also want to import get_all_courses, and run
     `courses = get_all_courses()` before calling this function.
     """
-    with console.status("[green]Loading courses...[/green]", spinner="dots"):
-        courses = get_all_courses()
-    if Fuzzy:
-        fuzzy = True
-    else:
-        fuzzy = False
+    output = []
     for course in courses:
         found = find_keyword(keyword, course, fuzzy)
         if found:
             console.print(found)
+            output.append(found)
+    return output
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Search for a keyword in course data.")
@@ -88,10 +85,10 @@ if __name__ == "__main__":
                 console.print(f"Fuzzy matching set to {fuzzy}")
                 keyword = ""
                 continue
-            Lens(keyword, fuzzy, courses)
+            output = Lens(keyword=keyword, courses=courses, fuzzy=fuzzy)
             keyword = ""
     else:
-        Lens(keyword, fuzzy, courses)
+        output = Lens(keyword=keyword, courses=courses, fuzzy=fuzzy)
         
 
 

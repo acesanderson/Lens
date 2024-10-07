@@ -1,84 +1,93 @@
-# Course Search Tool
+# Mentor: Learning Path Generation by Keyword
 
-This Python script allows you to search through a MongoDB database of course information using either strict or fuzzy keyword matching. It's designed to operate on a MongoDB Courses database and offers the flexibility of being used on MacOS or via an SSH tunnel from Windows. For a more portable version, SQLite could be used. This tool leverages the Rich library for enhanced console input/output and RapidFuzz for fuzzy matching.
+Mentor is a tool designed to help users search through a courses database efficiently by using keywords. Whether you prefer strict matching or fuzzy matching, Mentor caters to both needs, ensuring you can find courses that best fit your goals.
 
 ## Features
 
-- **Strict and Fuzzy Search:** Search course data using strict keyword matching or fuzzy matching to find relevant results even if the exact keyword is not present.
-- **Interactive Mode:** Offers an interactive mode where you can input keywords continuously.
-- **Multiple Keyword Search:** Supports searching for multiple keywords and returns results common to all.
+- **Keyword Search**: Find courses containing specific keywords in their title, metadata, or detailed course content.
+- **Fuzzy Matching**: Provides an option for fuzzy searching, allowing for more flexible and ambiguous keyword matching.
+- **Interactive Mode**: Enables users to enter keywords interactively and toggles fuzzy matching.
+- **Batch Search**: Supports searching for multiple keywords simultaneously and returns common courses across these searches.
 
-## Prerequisites
+## System Requirements
 
-- **Python 3.x**: Make sure Python is installed on your system.
-- **MongoDB**: The courses database should be set up and populated.
-- **Required Libraries**: Install necessary packages if not already available.
-  
-  ```sh
-  pip install pymongo rich rapidfuzz
-  ```
+- Python 3.7 or higher
+- MongoDB instance or access via SSH tunnel.
+- Libraries: `pymongo`, `argparse`, `rich`, `rapidfuzz`
 
-## Setup 
+## Installation
 
-1. **Database Configuration**: Ensure your MongoDB Courses database is accessible.
-2. **Environment**: Depending on your OS, ensure the necessary connections are set up (direct for MacOS or via SSH tunnel for Windows).
+1. Clone the repository to your local machine:
+   ```bash
+   git clone https://github.com/yourusername/mentor.git
+   ```
+
+2. Navigate into the cloned directory:
+   ```bash
+   cd mentor
+   ```
+
+3. Install the required packages:
+   ```bash
+   pip install pymongo rich rapidfuzz
+   ```
 
 ## Usage
 
-### Command Line Options
+Mentor can be run in both static and interactive modes from the command line. Here’s how you can use it:
 
-1. **Basic Usage**: Search for a keyword.
-   ```sh
-   python script_name.py <keyword>
-   ```
-   Replace `<keyword>` with your search term.
+### Static Mode
 
-2. **Fuzzy Search**: Enable fuzzy matching.
-   ```sh
-   python script_name.py <keyword> --fuzzy
-   ```
+Run the script by providing a keyword directly:
 
-3. **Interactive Mode**: Start an interactive session.
-   ```sh
-   python script_name.py --interactive
-   ```
-
-### Interaction in Interactive Mode
-
-- **Enter a Keyword**: When prompted, enter the keyword you wish to search for.
-- **Toggle Fuzzy Matching**: Type "fuzzy" to toggle the fuzzy matching mode.
-- **Exit**: Type "exit" to end the interactive session.
-
-## Functions
-
-- **find_keyword_strict**: Looks for exact keyword matches in course titles, descriptions, and table of contents.
-- **find_keyword_fuzzy**: Uses fuzzy matching to identify courses relevant to the keyword.
-- **search_multiple_keywords**: Accepts multiple keywords and finds courses common to all.
-- **Lens**: Core function to execute a keyword search across courses.
-
-## Example
-
-To find courses containing the keyword "Python" with fuzzy matching enabled:
-
-```sh
-python script_name.py "Python" --fuzzy
+```bash
+python mentor.py "your_keyword_here"
 ```
 
-In interactive mode, you can search continuously by entering different keywords. Toggle fuzzy matching by typing "fuzzy" and exit the loop by typing "exit".
+- Use the `-f` or `--fuzzy` option to enable fuzzy matching:
+  ```bash
+  python mentor.py "your_keyword_here" -f
+  ```
 
-## Future Improvements
+### Interactive Mode
 
-- **Database Portability**: Incorporate SQLite for a more portable solution.
-- **GUI Integration**: Develop a graphical user interface for ease of use.
+Launch Mentor in interactive mode with the `-i` or `--interactive` flag:
 
-## Support
+```bash
+python mentor.py -i
+```
 
-For any issues or contributions, please contact [Your Contact Information]. We welcome feedback and suggestions for improvement.
+- In this mode, input keywords directly into the console when prompted.
+- Type `exit` to close the interactive session.
+- Type `fuzzy` to toggle the fuzzy matching setting on/off.
+
+### Batch Keyword Search
+
+For searching multiple keywords at once, separate keywords by new lines:
+
+```bash
+python mentor.py
+keyword1
+keyword2
+keyword3
+```
+
+## Configuration
+
+Before running the tool, ensure that your MongoDB instance is properly set up and accessible either locally or through an SSH tunnel.
+
+## Contributions
+
+We welcome contributions to Mentor! Feel free to fork the project and submit pull requests. Make sure to follow the existing coding style and include unit tests for any new functionality.
 
 ## License
 
-This project is licensed under the terms of your preferred license.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
----
+## Support
 
-This README provides a comprehensive guide for both technical users and those less familiar with command-line tools, detailing the script's features, setup, and usage instructions.
+If you encounter any issues or have questions, please open an issue on GitHub, and we’ll be glad to assist.
+
+--- 
+
+This readme aims to be helpful whether you're setting up Mentor yourself or collaborating with a developer to get it running. Happy learning!

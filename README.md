@@ -1,93 +1,118 @@
-# Mentor: Learning Path Generation by Keyword
+────────────────────────────────────────────────────────────────────────────────────────────────────
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                                 Lens: Keyword Search on Courses                                  ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
-Mentor is a tool designed to help users search through a courses database efficiently by using keywords. Whether you prefer strict matching or fuzzy matching, Mentor caters to both needs, ensuring you can find courses that best fit your goals.
+Welcome to Lens, a keyword search tool designed to help you sift through your MongoDB Courses       
+database and find exactly what you're looking for. Whether you're a tech-savvy developer or someone 
+new to this, Lens offers a user-friendly way to search for course titles, descriptions, and tables  
+of contents by keyword. You can use it to conduct strict or fuzzy search matches, depending on your 
+needs.                                                                                              
 
-## Features
 
-- **Keyword Search**: Find courses containing specific keywords in their title, metadata, or detailed course content.
-- **Fuzzy Matching**: Provides an option for fuzzy searching, allowing for more flexible and ambiguous keyword matching.
-- **Interactive Mode**: Enables users to enter keywords interactively and toggles fuzzy matching.
-- **Batch Search**: Supports searching for multiple keywords simultaneously and returns common courses across these searches.
+                                              Features                                              
 
-## System Requirements
+ • Strict Search: Conduct precise keyword searches on course titles, descriptions, and tables of    
+   contents.                                                                                        
+ • Fuzzy Search: Use fuzzy matching to locate keywords even if they are not exact matches.          
+ • Multiple Keyword Support: Find courses that contain all of a list of specified keywords.         
+ • Interactive Mode: Engage with the program in real-time to input multiple queries without         
+   restarting the application.                                                                      
 
-- Python 3.7 or higher
-- MongoDB instance or access via SSH tunnel.
-- Libraries: `pymongo`, `argparse`, `rich`, `rapidfuzz`
 
-## Installation
+                                           Prerequisites                                            
 
-1. Clone the repository to your local machine:
-   ```bash
-   git clone https://github.com/yourusername/mentor.git
-   ```
+To use Lens, you'll need:                                                                           
 
-2. Navigate into the cloned directory:
-   ```bash
-   cd mentor
-   ```
+ • Python: Ensure you have Python installed on your machine. Lens is compatible with Python 3.6 and 
+   above.                                                                                           
+ • MongoDB: Your course data should be stored in a MongoDB instance. The code is designed to        
+   function on MacOS or via an SSH tunnel from Windows.                                             
+ • Dependencies: The following Python libraries are required:                                       
+    • pymongo: To access MongoDB from your Python script.                                           
+    • rich: For creating an interactive and visually appealing console interface.                   
+    • rapidfuzz: For performing fuzzy matching.                                                     
 
-3. Install the required packages:
-   ```bash
-   pip install pymongo rich rapidfuzz
-   ```
+You can install these dependencies using pip:                                                       
 
-## Usage
+                                                                                                    
+ pip install pymongo rich rapidfuzz                                                                 
+                                                                                                    
 
-Mentor can be run in both static and interactive modes from the command line. Here’s how you can use it:
 
-### Static Mode
+                                          Getting Started                                           
 
-Run the script by providing a keyword directly:
+ 1 Clone the Repository: Download the Lens project codebase to your local machine.                  
+                                                                                                    
+    git clone https://github.com/your-username/lens.git                                             
+    cd lens                                                                                         
+                                                                                                    
+ 2 Set Up Courses Data: Ensure your MongoDB instance is running and contains your course data. If   
+   you don't have this setup yet, you'll need to upload your course data into MongoDB.              
+ 3 Run Lens Program: Execute the script in your terminal using the following command:               
+                                                                                                    
+    python lens.py <keyword>                                                                        
+                                                                                                    
+   Replace <keyword> with the term you are searching for.                                           
 
-```bash
-python mentor.py "your_keyword_here"
-```
 
-- Use the `-f` or `--fuzzy` option to enable fuzzy matching:
-  ```bash
-  python mentor.py "your_keyword_here" -f
-  ```
+                                             Using Lens                                             
 
-### Interactive Mode
+                                          Argument Options                                          
 
-Launch Mentor in interactive mode with the `-i` or `--interactive` flag:
+When running the script, you can opt for different modes of operation:                              
 
-```bash
-python mentor.py -i
-```
+ • -i, --interactive: Run Lens in interactive mode. This lets you input multiple queries and switch 
+   settings without restarting the program.                                                         
+                                                                                                    
+    python lens.py -i                                                                               
+                                                                                                    
+ • -f, --fuzzy: Enable fuzzy matching to capture keyword variations that are not exact matches.     
+                                                                                                    
+    python lens.py -f <keyword>                                                                     
+                                                                                                    
 
-- In this mode, input keywords directly into the console when prompted.
-- Type `exit` to close the interactive session.
-- Type `fuzzy` to toggle the fuzzy matching setting on/off.
+                                          Interactive Mode                                          
 
-### Batch Keyword Search
+In interactive mode, you can use the following commands:                                            
 
-For searching multiple keywords at once, separate keywords by new lines:
+ • Enter a Keyword: Simply type a keyword and press Enter to search.                                
+ • Toggle Fuzzy Mode: Type fuzzy to toggle fuzzy mode on or off.                                    
+ • Exit: Type exit to close the program.                                                            
 
-```bash
-python mentor.py
-keyword1
-keyword2
-keyword3
-```
+                                    Searching Multiple Keywords                                     
 
-## Configuration
+For searching with multiple keywords, input keywords separated by newline characters or in separate 
+input lines in interactive mode. The program will return courses that contain all specified         
+keywords.                                                                                           
 
-Before running the tool, ensure that your MongoDB instance is properly set up and accessible either locally or through an SSH tunnel.
 
-## Contributions
+                                          Troubleshooting                                           
 
-We welcome contributions to Mentor! Feel free to fork the project and submit pull requests. Make sure to follow the existing coding style and include unit tests for any new functionality.
+If you encounter issues, ensure the following:                                                      
 
-## License
+ • MongoDB is correctly set up and accessible from Lens.                                            
+ • The necessary Python libraries are installed.                                                    
+ • You're entering the correct command syntax when running the script.                              
 
-This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Support
+                                            Contributing                                            
 
-If you encounter any issues or have questions, please open an issue on GitHub, and we’ll be glad to assist.
+We welcome contributions! Feel free to fork the repository and submit pull requests for any         
+improvements or bug fixes you have in mind.                                                         
 
---- 
 
-This readme aims to be helpful whether you're setting up Mentor yourself or collaborating with a developer to get it running. Happy learning!
+                                              License                                               
+
+This project is open-source and available under the MIT License.                                    
+
+
+                                              Contact                                               
+
+For questions or feedback, please contact the maintainer at [your-email@example.com].               
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+Thank you for choosing Lens to help you organize and search through your course data efficiently.   
+Happy searching!                                                                                    
+
+────────────────────────────────────────────────────────────────────────────────────────────────────

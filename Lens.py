@@ -1,3 +1,8 @@
+"""
+This uses my MongoDB Courses database, either on MacOS or SSH tunnel from Windows.
+A portable version of this would likely use SQLite.
+"""
+
 from Get import get_all_courses, Course # for Course dataclass + pymongo access
 import argparse                         # for command line arguments
 from rich import console                # for console input/output
@@ -40,6 +45,23 @@ def find_keyword(keyword, course, fuzzy = False):
         else:
             return find_keyword_strict(keyword, course)
 
+def Lens(keyword: str, fuzzy: bool = False, courses: list = []):
+    """
+    Importable function to search for a keyword in course data.
+    If you import, you also want to import get_all_courses, and run
+    `courses = get_all_courses()` before calling this function.
+    """
+    with console.status("[green]Loading courses...[/green]", spinner="dots"):
+        courses = get_all_courses()
+    if Fuzzy:
+        fuzzy = True
+    else:
+        fuzzy = False
+    for course in courses:
+        found = find_keyword(keyword, course, fuzzy)
+        if found:
+            console.print(found)
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Search for a keyword in course data.")
     parser.add_argument("keyword", type=str, nargs = "?", help="The keyword to search for in course data.")
@@ -66,17 +88,11 @@ if __name__ == "__main__":
                 console.print(f"Fuzzy matching set to {fuzzy}")
                 keyword = ""
                 continue
-            for course in courses:
-                found = find_keyword(keyword, course, fuzzy)
-                if found:
-                    console.print(found)
+            Lens(keyword, fuzzy, courses)
             keyword = ""
     else:
-        for course in courses:
-            found = find_keyword(keyword, course, fuzzy)
-            if found:
-                console.print(found)
-
+        Lens(keyword, fuzzy, courses)
+        
 
 
 

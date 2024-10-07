@@ -45,7 +45,22 @@ def find_keyword(keyword, course, fuzzy = False):
         else:
             return find_keyword_strict(keyword, course)
 
-def Lens(keyword: str, courses: list, fuzzy: bool = False):
+def search_multiple_keywords(keywords: list, courses: list, fuzzy: bool = False, verbose = False) -> list[str]:
+    """
+    This searches multiple keywords, and returns the intersection of the course lists.
+    """
+    output: list[set] = []
+    for keyword in keywords:
+        console.print(f"[yellow]Search: {keyword}")
+        results = Lens(keyword, courses, fuzz, verbose = verbose)
+        results_set = set(results)
+        console.print(f"[yellow]{len(results)} courses found.")
+        output.append(results_set)
+    same_courses = set.intersection(*output)
+    console.print(f"[green]{len(same_courses)} common courses found:[/green]")
+    return list(same_courses)
+
+def Lens(keyword: str, courses: list, fuzzy: bool = False, verbose = True) -> list[str]:
     """
     Importable function to search for a keyword in course data.
     If you import, you also want to import get_all_courses, and run
@@ -55,7 +70,8 @@ def Lens(keyword: str, courses: list, fuzzy: bool = False):
     for course in courses:
         found = find_keyword(keyword, course, fuzzy)
         if found:
-            console.print(found)
+            if verbose:
+                console.print(found)
             output.append(found)
     return output
 
@@ -74,6 +90,12 @@ if __name__ == "__main__":
         fuzzy = False
     if args.interactive:
         while True:
+            if "\n" in keyword:
+                keywords = keyword.split("\n")
+                output = search_multiple_keywords(keywords, courses, fuzzy, verbose = False)
+                print(output)
+                keyword = ""
+                continue
             if keyword:
                 console.print(f"[green]Searching for keyword: {keyword}[/green]")
             else:
@@ -88,7 +110,12 @@ if __name__ == "__main__":
             output = Lens(keyword=keyword, courses=courses, fuzzy=fuzzy)
             keyword = ""
     else:
-        output = Lens(keyword=keyword, courses=courses, fuzzy=fuzzy)
+        if "\n" in keyword:
+            keywords = keyword.split("\n")
+            output = search_multiple_keywords(keywords, courses, fuzzy, verbose = False)
+            print(output)
+        else:
+            output = Lens(keyword=keyword, courses=courses, fuzzy=fuzzy)
         
 
 

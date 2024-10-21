@@ -1,6 +1,6 @@
 # Lens: Keyword Search on Courses
 
-Welcome to Lens, a keyword search tool designed to help you sift through your MongoDB Courses database and find exactly what you're looking for. Whether you're a tech-savvy developer or someone new to this, Lens offers a user-friendly way to search for course titles, descriptions, and tables of contents by keyword. You can use it to conduct strict or fuzzy search matches, depending on your needs.
+Keyword search through course data.
 
 ## Features
 
@@ -14,7 +14,7 @@ Welcome to Lens, a keyword search tool designed to help you sift through your Mo
 To use Lens, you'll need:
 
 - **Python**: Ensure you have Python installed on your machine. Lens is compatible with Python 3.6 and above.
-- **MongoDB**: Your course data should be stored in a MongoDB instance. The code is designed to function on MacOS or via an SSH tunnel from Windows.
+- **MongoDB**: Your course data should be stored in a MongoDB instance. The code is designed to function on MacOS or via an SSH tunnel from Windows. ==NOTE: this makes it impossible to use except on my computer, I can package this into SQL database for portability at later date==
 - **Dependencies**: The following Python libraries are required:
   - `pymongo`: To access MongoDB from your Python script.
   - `rich`: For creating an interactive and visually appealing console interface.
@@ -80,18 +80,3 @@ If you encounter issues, ensure the following:
 - The necessary Python libraries are installed.
 - You're entering the correct command syntax when running the script.
 
-## Contributing
-
-We welcome contributions! Feel free to fork the repository and submit pull requests for any improvements or bug fixes you have in mind.
-
-## License
-
-This project is open-source and available under the [MIT License](LICENSE).
-
-## Contact
-
-For questions or feedback, please contact the maintainer at [your-email@example.com].
-
----
-
-Thank you for choosing Lens to help you organize and search through your course data efficiently. Happy searching!
